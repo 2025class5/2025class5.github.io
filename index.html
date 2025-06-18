@@ -1,0 +1,17 @@
+<audio id="bgMusic" loop>
+  <source src="/music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var audio = document.getElementById('bgMusic');
+
+  var promise = audio.play();
+
+  if (promise !== undefined) {
+    promise.catch(error => {
+      console.log("自动播放被阻止，需要用户交互");
+    });
+  }
+});
+</script>
