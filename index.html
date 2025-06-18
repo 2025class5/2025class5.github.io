@@ -132,8 +132,9 @@
 </head>
 <body>
     <h1>送你一朵小红花</h1>
-    <img src="/pic.jpg">
-
+    <br>
+    <img src="/picture.jpg">
+    <br>
     <audio id="bgMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
         您的浏览器不支持音频元素。
@@ -141,15 +142,7 @@
     
     <!-- 播放按钮（仅在自动播放失败时显示） -->
     <button id="playButton">点击播放音乐</button>
-    
-    <!-- 控制面板 -->
-    <div class="controls">
-        <button onclick="document.getElementById('bgMusic').volume += 0.1">增加音量</button>
-        <button onclick="document.getElementById('bgMusic').volume -= 0.1">减小音量</button>
-        <button onclick="document.getElementById('bgMusic').muted = !document.getElementById('bgMusic').muted">
-            静音/取消静音
-        </button>
-    </div>
+<br><Br>
 
 <div class="player-container">
         <h3 class="player-title">音乐播放器</h3>
