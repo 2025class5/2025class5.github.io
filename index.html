@@ -6,49 +6,34 @@
     <title>2025届高三五班毕业快乐</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f5f5f5;
-        }
-        #playButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none; /* 默认隐藏，只在需要时显示 */
-        }
-        #playButton:hover {
-            background-color: #45a049;
-        }
-        .controls {
-            margin-top: 20px;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Microsoft YaHei', sans-serif;
             margin: 0;
-            background-color: #f5f5f5;
+            padding: 20px;
+            background-color: #fff5f7;
+            text-align: center;
+            color: #333;
+        }
+        
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 30px;
+        }
+        
+        .song-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
         
         .player-container {
+            max-width: 400px;
+            margin: 0 auto;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 300px;
-        }
-        
-        .player-title {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
         .progress-container {
@@ -56,110 +41,83 @@
             height: 6px;
             background-color: #e0e0e0;
             border-radius: 3px;
-            margin-bottom: 10px;
+            margin: 15px 0;
             cursor: pointer;
         }
         
         .progress-bar {
             height: 100%;
-            background-color: #4CAF50;
+            background-color: #e74c3c;
             border-radius: 3px;
             width: 0%;
-            position: relative;
-        }
-        
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            right: -5px;
-            top: -3px;
-            width: 12px;
-            height: 12px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        
-        .progress-container:hover .progress-bar::after {
-            opacity: 1;
+            transition: width 0.1s linear;
         }
         
         .time-display {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 14px;
             color: #666;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .controls {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 20px;
         }
         
         .play-pause-btn {
-            background-color: #4CAF50;
+            background-color: #e74c3c;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: transform 0.2s;
+        }
+        
+        .play-pause-btn:hover {
+            transform: scale(1.05);
         }
         
         .volume-control {
             display: flex;
             align-items: center;
-            width: 120px;
         }
         
         .volume-icon {
-            margin-right: 5px;
+            margin-right: 10px;
             color: #666;
         }
         
         .volume-slider {
-            width: 80px;
+            width: 100px;
             cursor: pointer;
         }
-  </style>
+    </style>
 </head>
 <body>
     <h1>送你一朵小红花</h1>
-    <p>1111<br></p>
-    <img src="/pic.jpg" alt="pic" style="float: left; margin-right: 15px;" width="200">
-    <p>11111<br></p>
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        您的浏览器不支持音频元素。
-    </audio>
     
-    <!-- 播放按钮（仅在自动播放失败时显示） -->
-    <button id="playButton">点击播放音乐</button>
-  <br/>
-  <br/>
-
-<div class="player-container">
-        <h3 class="player-title">音乐播放器</h3>
-        
-        <!-- 进度条 -->
-        <div class="progress-container" id="progressContainer">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        
-        <!-- 时间显示 -->
+    <img src="/pic.jpg" alt="送你一朵小红花" class="song-image">
+    
+    <div class="player-container">
         <div class="time-display">
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
         
-        <!-- 控制按钮 -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
         <div class="controls">
             <button class="play-pause-btn" id="playPauseBtn">▶</button>
             
@@ -168,13 +126,12 @@
                 <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.7">
             </div>
         </div>
-        
-        <!-- 隐藏的audio元素 -->
-        <audio id="audioElement">
-            <source src="music.mp3" type="audio/mpeg">
-            您的浏览器不支持音频元素。
-        </audio>
     </div>
+
+    <audio id="audioElement">
+        <source src="/music.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
 
     <script>
         // 获取DOM元素
@@ -185,6 +142,23 @@
         const currentTimeEl = document.getElementById('currentTime');
         const durationEl = document.getElementById('duration');
         const volumeSlider = document.getElementById('volumeSlider');
+        
+        // 尝试自动播放音乐
+        function tryAutoPlay() {
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    playPauseBtn.textContent = '❚❚';
+                }).catch(error => {
+                    // 自动播放被阻止，显示播放按钮
+                    console.log("自动播放被阻止，需要用户交互");
+                });
+            }
+        }
+        
+        // 页面加载完成后尝试自动播放
+        window.addEventListener('load', tryAutoPlay);
         
         // 播放/暂停功能
         function togglePlayPause() {
@@ -235,7 +209,6 @@
         audio.addEventListener('timeupdate', updateProgress);
         audio.addEventListener('ended', () => {
             playPauseBtn.textContent = '▶';
-            progressBar.style.width = '0%';
         });
         progressContainer.addEventListener('click', setProgress);
         volumeSlider.addEventListener('input', setVolume);
@@ -243,6 +216,8 @@
         // 初始化时获取音频时长
         audio.addEventListener('loadedmetadata', () => {
             durationEl.textContent = formatTime(audio.duration);
+            // 设置初始音量
+            audio.volume = volumeSlider.value;
         });
     </script>
 </body>
