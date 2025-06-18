@@ -134,7 +134,6 @@
     </audio>
 
     <script>
-        // 获取DOM元素
         const audio = document.getElementById('audioElement');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progressBar = document.getElementById('progressBar');
@@ -143,7 +142,6 @@
         const durationEl = document.getElementById('duration');
         const volumeSlider = document.getElementById('volumeSlider');
         
-        // 尝试自动播放音乐
         function tryAutoPlay() {
             const playPromise = audio.play();
             
@@ -151,16 +149,13 @@
                 playPromise.then(() => {
                     playPauseBtn.textContent = '❚❚';
                 }).catch(error => {
-                    // 自动播放被阻止，显示播放按钮
-                    console.log("自动播放被阻止，需要用户交互");
+                    console.log("自动播放被阻止，请重试");
                 });
             }
         }
         
-        // 页面加载完成后尝试自动播放
         window.addEventListener('load', tryAutoPlay);
         
-        // 播放/暂停功能
         function togglePlayPause() {
             if (audio.paused) {
                 audio.play();
@@ -171,27 +166,23 @@
             }
         }
         
-        // 更新进度条
         function updateProgress() {
             const { currentTime, duration } = audio;
             const progressPercent = (currentTime / duration) * 100;
             progressBar.style.width = `${progressPercent}%`;
             
-            // 更新时间显示
             currentTimeEl.textContent = formatTime(currentTime);
             if (duration) {
                 durationEl.textContent = formatTime(duration);
             }
         }
         
-        // 格式化时间为 MM:SS
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
         
-        // 设置进度条
         function setProgress(e) {
             const width = this.clientWidth;
             const clickX = e.offsetX;
@@ -199,12 +190,10 @@
             audio.currentTime = (clickX / width) * duration;
         }
         
-        // 设置音量
         function setVolume() {
             audio.volume = this.value;
         }
         
-        // 事件监听
         playPauseBtn.addEventListener('click', togglePlayPause);
         audio.addEventListener('timeupdate', updateProgress);
         audio.addEventListener('ended', () => {
@@ -212,13 +201,12 @@
         });
         progressContainer.addEventListener('click', setProgress);
         volumeSlider.addEventListener('input', setVolume);
-        
-        // 初始化时获取音频时长
+    
         audio.addEventListener('loadedmetadata', () => {
             durationEl.textContent = formatTime(audio.duration);
-            // 设置初始音量
             audio.volume = volumeSlider.value;
         });
     </script>
+    <p>by Rayawa</p>
 </body>
 </html>
