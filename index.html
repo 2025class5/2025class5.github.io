@@ -1,17 +1,80 @@
-<audio id="bgMusic" loop>
-  <source src="/music.mp3" type="audio/mpeg">
-</audio>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动播放音乐示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f5f5f5;
+        }
+        #playButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none; /* 默认隐藏，只在需要时显示 */
+        }
+        #playButton:hover {
+            background-color: #45a049;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎来到我的网站</h1>
+    <p>背景音乐将自动播放</p>
+    
+    <!-- 音频元素 -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+    
+    <!-- 播放按钮（仅在自动播放失败时显示） -->
+    <button id="playButton">点击播放音乐</button>
+    
+    <!-- 控制面板 -->
+    <div class="controls">
+        <button onclick="document.getElementById('bgMusic').volume += 0.1">增加音量</button>
+        <button onclick="document.getElementById('bgMusic').volume -= 0.1">减小音量</button>
+        <button onclick="document.getElementById('bgMusic').muted = !document.getElementById('bgMusic').muted">
+            静音/取消静音
+        </button>
+    </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var audio = document.getElementById('bgMusic');
-
-  var promise = audio.play();
-
-  if (promise !== undefined) {
-    promise.catch(error => {
-      console.log("自动播放被阻止，需要用户交互");
-    });
-  }
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('bgMusic');
+            var playButton = document.getElementById('playButton');
+            
+            // 尝试自动播放
+            var playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // 自动播放被阻止，显示播放按钮
+                    playButton.style.display = 'inline-block';
+                });
+            }
+            
+            // 点击播放按钮时播放音乐
+            playButton.addEventListener('click', function() {
+                audio.play();
+                this.style.display = 'none';
+            });
+            
+            // 设置初始音量（避免太大声）
+            audio.volume = 0.5;
+        });
+    </script>
+</body>
+</html>
